@@ -10,7 +10,6 @@
 #
 FROM debian:jessie
 LABEL maintainer "Martin Ertsås <martiert@gmail.com>"
-ARG AUDIO_GID
 
 RUN apt-get update && apt-get install --yes curl
 RUN curl https://apt.mopidy.com/mopidy.gpg | apt-key add -
@@ -21,17 +20,15 @@ RUN apt-get update && apt-get install --yes \
         mopidy-spotify \
         mopidy-soundcloud \
         mopidy-spotify-tunigo \
-        mopidy-youtube \
-        alsa-utils
+        mopidy-youtube
 
 # Make a user
 ENV HOME /home/mopidy
 RUN mkdir $HOME $HOME/.config \
-        && chown -R mopidy:root $HOME
-RUN usermod -a -G audio mopidy \
-        && groupmod -g $AUDIO_GID audio
+        && usermod --append --groups audio mopidy \
+        && chown --recursive mopidy:root $HOME
 
 WORKDIR $HOME
 USER mopidy
 
-ENTRYPOINT [ "mopidy" ]
+ENTRYPOINT [ "mopidy", "--config", "/home/mopidy/.config/mopidy/mopidy.conf" ]
