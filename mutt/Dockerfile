@@ -3,25 +3,36 @@
 # docker run -it \
 #	-v /etc/localtime:/etc/localtime:ro \
 #	-v $HOME/.gnupg:/home/user/.gnupg \ # so you can encrypt ;)
+#	-v $HOME/.muttrc:/home/user/.muttrc \
 #	--name mutt \
-#	jess/mutt
+#	martiert/mutt
 #
-FROM alpine:edge
+FROM debian:jessie
 LABEL maintainer "Martin Ertsås <martiert@gmail.com>"
 
-RUN addgroup -g 1000 user \
-        && adduser -D -h /home/user -G user -u 1000 user
+RUN useradd --create-home --system --user-group user
 
-RUN apk --no-cache add \
+RUN apt update \
+        && apt install --yes \
         ca-certificates \
         elinks \
         git \
-        gnupg1 \
+        gnupg \
         lynx \
         mutt \
-        mutt-doc \
         urlview \
-        vim
+        python \
+        python-setuptools \
+        vim \
+        --no-install-recommends \
+        && rm --recursive --force /var/lib/apt/lists/*
+
+RUN git clone https://github.com/dmedvinsky/mutt-ics.git /opt/mutt-ics \
+        && cd /opt/mutt-ics \
+        && python setup.py build \
+        && python setup.py install \
+        && cd \
+        && rm --force --recursive /opt/mutt-ics
 
 # a browser is necessary!
 ENV BROWSER lynx
