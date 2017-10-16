@@ -22,8 +22,8 @@ RUN apt-get update && apt-get install -y \
 	--no-install-recommends
 
 # Add the skype debian repo
-RUN curl -sSL https://repo.skype.com/data/SKYPE-GPG-KEY | apt-key add -
-RUN echo "deb [arch=amd64] https://repo.skype.com/deb stable main" > /etc/apt/sources.list.d/skype.list
+RUN curl -sSL https://repo.skype.com/data/SKYPE-GPG-KEY | apt-key add - \
+        && echo "deb [arch=amd64] https://repo.skype.com/deb stable main" > /etc/apt/sources.list.d/skype.list
 
 RUN apt-get update && apt-get -y install \
 	skypeforlinux \

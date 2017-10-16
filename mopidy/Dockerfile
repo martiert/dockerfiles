@@ -11,16 +11,20 @@
 FROM debian:jessie
 LABEL maintainer "Martin Ertsås <martiert@gmail.com>"
 
-RUN apt-get update && apt-get install --yes curl
-RUN curl https://apt.mopidy.com/mopidy.gpg | apt-key add -
-RUN curl --output /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessie.list
+ENV GPG_FILENAME /tmp/mopidy.gpg
+ADD https://apt.mopidy.com/mopidy.gpg $GPG_FILENAME
+ADD https://apt.mopidy.com/jessie.list /etc/apt/sources.list.d/mopidy.list
+RUN apt-key add $GPG_FILENAME && rm $GPG_FILENAME
+
 RUN apt-get update && apt-get install --yes \
         ca-certificates \
         mopidy \
         mopidy-spotify \
         mopidy-soundcloud \
         mopidy-spotify-tunigo \
-        mopidy-youtube
+        mopidy-youtube \
+        --no-install-recommends \
+        && rm --recursive --force /var/lib/apt/lists/*
 
 # Make a user
 ENV HOME /home/mopidy
