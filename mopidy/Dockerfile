@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install --yes \
         mopidy-soundcloud \
         mopidy-spotify-tunigo \
         mopidy-youtube \
+        gstreamer1.0-pulseaudio \
         --no-install-recommends \
         && rm --recursive --force /var/lib/apt/lists/*
 
