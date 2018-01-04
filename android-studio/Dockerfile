@@ -16,7 +16,7 @@ RUN mkdir opt \
     && unzip android-studio.zip
 
 FROM debian:jessie
-LABEL maintainer "Martin Ertsås <martiert@hgmail.com>"
+LABEL maintainer "Martin Ertsås <martiert@gmail.com>"
 
 RUN groupadd --gid 1000 user \
         &&  useradd \

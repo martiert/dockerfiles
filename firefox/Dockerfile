@@ -12,7 +12,7 @@
 #     --name firefox \
 #     martiert/firefox
 FROM debian:sid
-LABEL maintainer "Martin Ertsås <martiert@hgmail.com>"
+LABEL maintainer "Martin Ertsås <martiert@gmail.com>"
 
 RUN groupadd --gid 1000 user \
         &&  useradd \
