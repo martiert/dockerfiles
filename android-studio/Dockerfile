@@ -38,6 +38,7 @@ RUN apt update \
 
 USER android
 ENV HOME /home/android
+RUN mkdir $HOME/.gradle
 COPY --from=builder /opt/android-studio $HOME/.local/opt/android-studio
 
 ENTRYPOINT [ "/home/android/.local/opt/android-studio/bin/studio.sh" ]
