@@ -3,7 +3,7 @@
 #
 # docker run --rm -it \
 #       -v /etc/localtime:/etc/localtime:ro \
-#       --link mpd:mpd \
+#       --net container:mopidy \
 #       --name ncmpcpp \
 #       martiert/ncmpcpp
 #
@@ -19,4 +19,3 @@ RUN apt-get update && apt-get install -y \
 
 USER user
 ENTRYPOINT [ "ncmpcpp" ]
-CMD [ "--host", "mpd" ]
