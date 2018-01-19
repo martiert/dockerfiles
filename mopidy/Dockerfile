@@ -33,6 +33,7 @@ RUN mkdir $HOME $HOME/.config \
         && usermod --append --groups audio mopidy \
         && chown --recursive mopidy:root $HOME
 
+EXPOSE 6600
 WORKDIR $HOME
 USER mopidy
 
