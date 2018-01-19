@@ -30,6 +30,7 @@ RUN apt update \
         && apt install --yes \
             lib32z1 \
             git \
+            file \
             build-essential \
             default-jre \
             default-jdk \
