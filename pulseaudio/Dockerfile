@@ -4,7 +4,6 @@
 #	-v /etc/localtime:/etc/localtime:ro \
 #	--device /dev/snd \
 #	--name pulseaudio \
-#	-p 4713:4713 \
 #	-v /var/run/dbus:/var/run/dbus \
 #	-v /etc/machine-id:/etc/machine-id \
 #	martiert/pulseaudio
@@ -35,4 +34,5 @@ COPY client.conf /etc/pulse/client.conf
 COPY daemon.conf /etc/pulse/daemon.conf
 copy start_pulseaudio /usr/bin/start_pulseaudio
 
+EXPOSE 4713
 ENTRYPOINT [ "start_pulseaudio" ]
